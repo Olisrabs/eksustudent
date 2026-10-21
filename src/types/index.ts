@@ -105,7 +105,13 @@ export interface AcademicAuditReport {
   }[];
 }
 
-export type PaymentCategory = 'HOSTEL_ALLOCATION_FEE' | 'TUITION' | 'ACCEPTANCE_FEE' | 'FACULTY_DUES' | 'LATE_REGISTRATION';
+export type PaymentCategory = 
+  | 'HOSTEL_ALLOCATION_FEE' 
+  | 'HOSTEL_ACCOMMODATION' 
+  | 'TUITION' 
+  | 'ACCEPTANCE_FEE' 
+  | 'FACULTY_DUES' 
+  | 'LATE_REGISTRATION';
 export type ProviderGateway = 'REMITA' | 'INTERSWITCH' | 'PAYSTACK' | 'DIRECT_BANK_NIBSS';
 
 export type DiscrepancyClassification = 

@@ -116,7 +116,7 @@ export class AppStorage {
 
     // Unlock student hostel or fee services
     const studentIndex = students.findIndex(s => s.id === tx.studentId);
-    if (studentIndex !== -1 && (tx.category === 'HOSTEL_ACCOMMODATION' as any || tx.category === 'HOSTEL_ALLOCATION_FEE')) {
+    if (studentIndex !== -1 && (tx.category === 'HOSTEL_ACCOMMODATION' || tx.category === 'HOSTEL_ALLOCATION_FEE')) {
       students[studentIndex].hostelApplication.status = 'CONFIRMED_CLEARED_FOR_MOVEIN';
       students[studentIndex].hostelApplication.moveInPassCode = `EKSU-HOSTEL-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
     }
@@ -181,14 +181,14 @@ export class AppStorage {
 
     // Auto-resolve any matching open transactions
     transactions.forEach(tx => {
-      if (tx.category === 'HOSTEL_ACCOMMODATION' && tx.portalStatus === 'UNPAID') {
+      if ((tx.category === 'HOSTEL_ACCOMMODATION' || tx.category === 'HOSTEL_ALLOCATION_FEE') && tx.portalStatus === 'UNPAID') {
         tx.portalStatus = 'PAID';
         tx.discrepancyType = 'MATCHED_SYNCED';
       }
     });
 
     cases.forEach(c => {
-      if (c.category === 'HOSTEL_ACCOMMODATION' && c.status !== 'RESOLVED_PORTAL_UPDATED') {
+      if ((c.category === 'HOSTEL_ACCOMMODATION' || c.category === 'HOSTEL_ALLOCATION_FEE') && c.status !== 'RESOLVED_PORTAL_UPDATED') {
         c.status = 'RESOLVED_PORTAL_UPDATED';
         c.resolvedAt = new Date().toISOString();
         c.resolvedBy = staffName;
@@ -258,7 +258,7 @@ export class AppStorage {
       category: data.category,
       submittedAt: new Date().toISOString().replace('T', ' ').substring(0, 19),
       status: 'AI_VERIFIED',
-      assignedTeam: data.category === 'HOSTEL_ACCOMMODATION' ? 'HOSTEL_ADMIN' : 'ICT_INTEGRATION',
+      assignedTeam: (data.category === 'HOSTEL_ACCOMMODATION' || data.category === 'HOSTEL_ALLOCATION_FEE') ? 'HOSTEL_ADMIN' : 'ICT_INTEGRATION',
       priority: 'URGENT',
       aiExplanation: `Student reported debit of ₦${data.amount.toLocaleString()} on reference ${data.reference}. AI gateway query matched settlement. Portal webhook desynchronization verified.`,
       auditTrail: [
