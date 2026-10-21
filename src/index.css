@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background:        #f8fafc;           /* Slate 50 — page background */
+  --foreground:        #0f1115;           /* Near-black — all text */
+  --primary:           #4f46e5;           /* Indigo 600 — CTAs, active states */
+  --primary-foreground:#ffffff;           /* White — text on primary */
+  --secondary:         #e2e8f0;           /* Slate 200 — secondary surfaces */
+  --accent:            #10b981;           /* Emerald 500 — success, completed */
+  --muted:             #f1f5f9;           /* Slate 100 — muted backgrounds */
+  --muted-foreground:  #64748b;           /* Slate 500 — secondary text */
+  --border:            rgba(0,0,0,0.1);   /* Subtle dark border */
+  --card:              rgba(255,255,255,0.9); /* Semi-transparent white card */
+  --radius:            0.75rem;           /* 12px — base border-radius */
+}
+
+.dark {
+  --background:        #0f1115;
+  --foreground:        #f8fafc;
+  --primary:           #6366f1;           /* Indigo 500 — slightly lighter for dark */
+  --secondary:         #1e293b;           /* Slate 800 */
+  --accent:            #10b981;           /* Same emerald */
+  --muted:             #334155;           /* Slate 700 */
+  --muted-foreground:  #94a3b8;           /* Slate 400 */
+  --border:            rgba(255,255,255,0.08);
+  --card:              rgba(15,17,21,0.85);
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+}
+
+/* Custom Glassmorphism Utilities from Design Reference */
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+.glass-card {
+  background: var(--card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.dark .glass-card {
+  background: linear-gradient(145deg, rgba(30,41,59,0.4) 0%, rgba(15,17,21,0.2) 100%);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--primary), #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom Form Input utility from Section 10.7 */
+.input {
+  width: 100%;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  transition: all 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
+}
+
+/* Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
